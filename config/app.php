@@ -30,6 +30,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'exchange_key' => env('EXCHANGE_RATE_KEY', null),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
