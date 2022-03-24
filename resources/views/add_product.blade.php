@@ -46,26 +46,24 @@
 
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Sr. No</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($product as $pro)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pro->title }}</td>
-                            <td>{{ $pro->description }}</td>
-                            <td><a href="{{ route('add_product', $pro->id) }}" class="btn btn-primary">Add Product</a></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <form class="form" action="{{ route('save_product') }}" method="POST">
+                <h3>Add Product</h3>
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <div>
+                        <label class="form-label">Product Title</label>
+                        <input class="form-control" type="text" name="title" value="{{ $product->title }}" readonly>
+                    </div>
+                    <div>
+                        <label class="form-label">Product Price</label>
+                        <input class="form-control" type="number" name="price" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Product Quantity</label>
+                        <input class="form-control" type="number" name="quantity" max="100" required>
+                    </div>
+                    <input type="submit" value="Submit" class="mt-3 btn btn-secondary">
+                </form>
             </div>
         </div>
     </div>
