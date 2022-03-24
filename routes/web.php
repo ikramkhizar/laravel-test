@@ -14,9 +14,11 @@ use App\Http\Middleware\AllowAdmin;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::redirect('/', '/login');
+
+Route::get('/welcome', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+Route::get('/welcome/{id}', [App\Http\Controllers\WelcomeController::class, 'show'])->name('add_product');
+Route::post('/welcome', [App\Http\Controllers\WelcomeController::class, 'store'])->name('save_product');
 
 Auth::routes(['verify'=>true]);
 
