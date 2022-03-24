@@ -27,7 +27,7 @@
         @if (Route::has('login'))
         <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
             @auth
-            <a href="{{ route('my_products') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">My Products</a>
+            <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
             <a href="{{ route('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">Logout</a>
 
@@ -51,7 +51,8 @@
                         <tr>
                             <th>Sr. No</th>
                             <th>Title</th>
-                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -59,9 +60,10 @@
                         @foreach($product as $pro)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $pro->title }}</td>
-                            <td>{{ $pro->description }}</td>
-                            <td><a href="{{ route('add_product', $pro->id) }}" class="btn btn-primary">Add Product</a></td>
+                            <td>{{ $pro->product->title }}</td>
+                            <td>{{ $pro->price }}</td>
+                            <td>{{ $pro->quantity }}</td>
+                            <td><a href="{{ route('edit_product', $pro->id) }}" class="btn btn-primary">Edit Product</a></td>
                         </tr>
                         @endforeach
                     </tbody>

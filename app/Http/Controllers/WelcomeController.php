@@ -25,12 +25,12 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $product = Product::all();
+        $product = Product::active()->get();
 
         return view('welcome', compact('product'));
     }
 
-    public function show($id)
+    public function create($id)
     {
         $product = Product::findOrFail($id);
         
@@ -47,5 +47,29 @@ class WelcomeController extends Controller
         ]);
         
         return redirect()->route('welcome');
+    }
+
+    public function show()
+    {
+        $product = ProductStock::with('product')->where('user_id', auth()->id())->get();
+        
+        return view('my_products', compact('product'));
+    }
+
+    public function edit($id)
+    {
+        $product = ProductStock::with('product')->find($id);
+        
+        return view('edit_product', compact('product'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $product = ProductStock::findOrFail($id);
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->save();
+        
+        return redirect()->route('my_products');
     }
 }
